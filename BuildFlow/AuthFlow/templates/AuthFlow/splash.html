@@ -2,7 +2,15 @@
 
 {% block content %}
 
-<h1>Welcome to BuildFlow</h1>
-<p>Sign up or log in to access your projects.</p>
+<div class="splash-container">
+    <h1>Welcome to BuildFlow</h1>
+    <br>
+    <p>Sign up or log in to access your projects.</p>
+    <br>
+    <div class="btn-container">
+        <a href="{% url 'authflow:signup' %}" class="btn btn-signup">Signup</a>
+        <a href="{% url 'authflow:login' %}" class="btn btn-login">Login</a>
+    </div>
+</div>
 
 {% endblock %}
