@@ -1,15 +1,20 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.views import View
+from django.urls import reverse_lazy
+from .forms import CustomUserCreationForm
+from django.http import HttpResponse
+from django.contrib import messages
 
 
+# initial page when opeining app
 class SplashView(View):
     def get(self, request):
         return render(request, 'authflow/splash.html')
     
 
+# for existing users
 class LoginView(View):
     def get(self, request):
         return render(request, 'authflow/login.html')
@@ -21,7 +26,7 @@ class LoginView(View):
 
         if user is not None:
             login(request, user)
-            return redirect('dashboard')
+            return redirect('/dashboard')
         else:
             return render(
                 request, 'authflow/login.html',
@@ -29,19 +34,31 @@ class LoginView(View):
                 )
         
 
+# for new users
 class SignupView(View):
     def get(self, request):
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
         return render(request, 'authflow/signup.html', {'form': form})
 
     def post(self, request):
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
+            email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
             login(request, user)
-            return redirect('dashboard')
+            return redirect('/dashboard')
         else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field}: {error}")
+                    
             return render(request, 'authflow/signup.html', {'form': form})
+        
+
+# test view for dashboard redirect before dashboard app has been written
+def dashboard(request):
+    return HttpResponse("Pretend Dashboard")
+

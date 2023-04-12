@@ -122,3 +122,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# message storage for django's built in message framework
+# (for error messages from signup specificaly)
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
