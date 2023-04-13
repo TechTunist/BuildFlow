@@ -21,8 +21,6 @@ def home(request):
     # address = Address.objects.filter(project=project)
     # data = Data.objects.filter(address=address)
 
-    print(project)
-
     context = {
         # 'data': data,
         # 'address': address,
