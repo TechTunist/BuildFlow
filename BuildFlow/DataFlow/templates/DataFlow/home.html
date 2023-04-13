@@ -2,19 +2,38 @@
 
 {% block content %}
 
-<div class="sidebar">
-    <ul>
-        {% for link in links %}
-            <li><a href="#">{{ link }}</a></li>
-        {% endfor %}
-    </ul>
-</div>
-
-<div class="content">
-    <div class="title">{{ title }}</div>
-    <div class="image">
-        <img src="{{ images.0 }}">
+<div><h1>Welcome {{request.user}}</h1></div>
+<h1>Test Data: {{project.project_address.postcode}}</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3">
+            <h3>Project Fields</h3>
+            <ul>
+                <li><a href="#">Drawings</a></li>
+                <li><a href="#">Photos</a></li>
+                <li><a href="#">PDFs</a></li>
+                <li><a href="#">Other Documents</a></li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+            <h2>{{ company_name }}</h2>
+            <hr>
+            <div class="row">
+                {% for project in projects %}
+                {{project.job_number}}
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>{{ project.client }}</h4>
+                        </div>
+                        <div class="card-body">
+                            <img src="{{ project.image.url }}" alt="" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
 </div>
-
 {% endblock %}

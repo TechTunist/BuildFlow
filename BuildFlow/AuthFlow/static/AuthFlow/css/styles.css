@@ -2,7 +2,7 @@
 
 .splash-container {
     /* background-image: url('/static/splash_image/splash.webp'); */
-    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('/static/splash_image/splash.webp');
+    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url('/static/AuthFlow/splash_image/splash.webp');
     flex-direction: column;
     text-align: center;
   

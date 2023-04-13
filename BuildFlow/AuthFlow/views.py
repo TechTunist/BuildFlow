@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.views import View
 from django.urls import reverse_lazy
@@ -26,7 +26,7 @@ class LoginView(View):
 
         if user is not None:
             login(request, user)
-            return redirect('/dashboard')
+            return redirect('/')
         else:
             return render(
                 request, 'authflow/login.html',
@@ -49,13 +49,21 @@ class SignupView(View):
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
             login(request, user)
-            return redirect('/dashboard')
+            return redirect('/')
         else:
             for field, errors in form.errors.items():
                 for error in errors:
                     messages.error(request, f"{field}: {error}")
                     
             return render(request, 'authflow/signup.html', {'form': form})
+        
+
+# logout user
+# logout the user
+def logout_user(request):
+    logout(request)
+    
+    return redirect('authflow:splash')
         
 
 # test view for dashboard redirect before dashboard app has been written

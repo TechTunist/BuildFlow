@@ -1,11 +1,41 @@
+from django.shortcuts import render, redirect
+from django.views.generic import TemplateView
+from django.views import View
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.contrib.auth import logout, authenticate
 from django.shortcuts import render
-from django.http import HttpResponse
+from .models import Project, Data, Address
 
 
+
+@login_required(login_url='/authenticate')
 def home(request):
+
+    if request.user.is_authenticated:
+        print("Auth approved")
+
+    user = request.user
+
+    project = Project.objects.get(client=user)
+    # address = Address.objects.filter(project=project)
+    # data = Data.objects.filter(address=address)
+
+    print(project)
+
     context = {
-        'title': 'PJArchitecture',
-        'images': ['image1.jpg', 'image2.jpg', 'image3.jpg'],  # Replace this with actual images from the database
-        'links': ['Drawings', 'Photos', 'PDFs', 'Other'],  # Replace this with actual links to the different model fields
-    }
+        # 'data': data,
+        # 'address': address,
+        'project': project
+        }
+
     return render(request, 'dataflow/home.html', context)
+
+
+# logout the user
+def logout_user(request):
+    logout(request)
+    
+    return redirect('authflow/auth')
+
+
