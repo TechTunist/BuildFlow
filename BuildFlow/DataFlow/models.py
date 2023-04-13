@@ -25,8 +25,8 @@ class Address(models.Model):
 
 class Data(models.Model):
     address = models.ForeignKey(Address, on_delete=models.CASCADE)
-    pdf_file = models.FileField(upload_to='media/pdfs/')
-    image = models.ImageField(upload_to='media/images/')
+    pdf_file = models.FileField(upload_to='pdfs/', null=True)
+    image = models.ImageField(upload_to='images/', null=True)
 
     def __str__(self):
         return str(f"Project: {self.address}")

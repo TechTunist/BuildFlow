@@ -18,13 +18,14 @@ def home(request):
     user = request.user
 
     project = Project.objects.get(client=user)
+    
     # address = Address.objects.filter(project=project)
     # data = Data.objects.filter(address=address)
 
     context = {
         # 'data': data,
         # 'address': address,
-        'project': project
+        'project': project,
         }
 
     return render(request, 'dataflow/home.html', context)

@@ -12,7 +12,5 @@ urlpatterns = [
     path('', include(('DataFlow.urls', 'dataflow'), namespace='dataflow')),
     path('authenticate/', include(('AuthFlow.urls', 'authflow'), namespace='authflow')),
     
-]
-
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
