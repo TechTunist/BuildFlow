@@ -8,6 +8,7 @@ class Project(models.Model):
     description = models.CharField(max_length=256, blank=True, null=True)
     project_data = models.ForeignKey('Data', on_delete=models.DO_NOTHING, null=True)
     project_address = models.ForeignKey('Address', on_delete=models.DO_NOTHING, null=True)
+    cover_image = models.ImageField(upload_to='images/cover', null=True)
 
     def __str__(self):
         return str(f"Job Number: {self.job_number}")
